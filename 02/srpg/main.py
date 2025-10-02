@@ -39,6 +39,7 @@ if __name__ == '__main__':
     # print(Hero.__DEFAULT_HP) # private変数にアクセスできてしまうのであくまでもprivate扱いして欲しい変数
     # classの外からprivate変数にアクセスしたければアクセサー（get, set)を作ります
     print(Hero.getDefaultHP()) # static扱いの変数はインスタンス化しなくても実行可能
+    print("\n")
 
     # グループワーク内容
     # Heroクラスのインスタンスhero1，hero2を使ってフレーバーテキストを入れながらHPの変化とHero.buf_statusの変化を表示してください
@@ -48,28 +49,51 @@ if __name__ == '__main__':
     print(f"{hero1.name}は冒険に出発した") # フレーバーテキスト
     print(f"{hero2.name}は{hero1.name}のパーティに合流した") # フレーバーテキスト
     print_heros(heros) # ヒーローのリストを表示する関数を呼び出し
+    print("\n")
 
     # 例１
     print("Hero全員のHPが下がるトラップ（デバフ）発動") # フレーバーテキスト
     # Hero.buf_status['hp']を変化させると良いのでは？
+    #チーム全員のHPに-20のデバフをかける
+    for h in heros:
+        if isinstance(h, Hero):
+            h.buf_status["hp"] = -20
     print_heros(heros) # ヒーローのリストを表示する関数を呼び出し
+    print("\n")
 
     print(f"{hero1.name}は魔法使いに転職した") # フレーバーテキスト
     hero1 = Magician(name=hero1.name, hp=hero1.getHP(), mp=150) # Magicianクラスのインスタンスを生成，hpはgetHP()で取得
     heros[0] = hero1 # herosリストの最初の要素を更新
     check_instance_type(heros) # ヒーローのリストを表示する関数を呼び出し
     print_heros(heros) # ヒーローのリストを表示する関数を呼び出し
+    print("\n")
 
     # 例２
     print(f"{hero1.name}はHero全員のHPが下がる呪い（デバフ）をうけた") # フレーバーテキスト
     # hero1.buf_status['hp']を変化させると良いのでは？
     # print(f'Hero.buf_status = {Hero.buf_status}') # Heroクラスのjob_statusの値を確認
+    for h in heros:
+        if isinstance(h, Hero):
+            h.buf_status["hp"] = -20
     print_heros(heros) # ヒーローのリストを表示する関数を呼び出し
+    print("\n")
 
     # 例３
     print(f"{hero1.name}は罠にかかって味方の{hero2.name}を魔法で攻撃してしまった") # フレーバーテキスト
-    # hero1.magic_attack(hero2) # hero1がhero2に魔法攻撃
+    hero1.magic_attack(hero2) # hero1がhero2に魔法攻撃
     print_heros(heros) # ヒーローのリストを表示する関数を呼び出し
+    print("\n")
+
+    # モンスターとの戦闘
+    print("モンスターがあらわれた！") # フレーバーテキスト
+    print("モンスターの全体攻撃！") # フレーバーテキスト
+    print("パーティ全員に50ダメージ")
+    hero1.hp = hero1.hp - 50
+    hero2.hp = hero2.hp - 50
+    print_heros(heros) # ヒーローのリストを表示する関数を呼び出し
+    print("\n")
+    print(f"{hero1.name}たちは逃げ出した！")
+    print("\n")
 
     print(f"{hero1.name}と{hero2.name}の今日の冒険はここまで") # フレーバーテキスト
     print(f'hero1={str(hero1)}') # 文字列に変換
